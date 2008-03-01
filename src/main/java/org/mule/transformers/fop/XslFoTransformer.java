@@ -47,7 +47,6 @@ public class XslFoTransformer extends AbstractTransformer {
     byte[] result = null;
     try {
       Fop fop = fopFactory.newFop(getMimeType(), foUserAgent, out);
-      logger.debug("Target Resolution: " + fop.getUserAgent().getTargetResolution());
       Source src = new StreamSource(is);
       TransformerFactory factory = TransformerFactory.newInstance();
       Transformer transformer = null;
@@ -93,6 +92,15 @@ public class XslFoTransformer extends AbstractTransformer {
   }
   
   public void setTargetResolution(String targetResolution) {
-    this.targetResolution = targetResolution;
+    // This might need changed. I don't necessarily like checking a numeric
+    // by catching an exception, but here it goes.
+    try {
+      float temp = Float.parseFloat(targetResolution);
+      logger.debug("Target Resolution: " + temp);
+      this.targetResolution = targetResolution;
+    } catch (NumberFormatException e) {
+      logger.error("The value for target resolution is invaid. Value "
+                     .concat(targetResolution));      
+    }
   }
 }
