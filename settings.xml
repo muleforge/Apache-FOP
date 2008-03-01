@@ -3,18 +3,18 @@
   <servers>
     <server>
       <id>muleforge.webdav.releases</id>
-      <username>xx</username>
-      <password>yy</password>
+      <username>erichleipold</username>
+      <password>Ripper01</password>
     </server>
     <server>
       <id>muleforge.webdav.snapshots</id>
-      <username>xx</username>
-      <password>yy</password>
+      <username>erichleipold</username>
+      <password>Ripper01</password>
     </server>
     <server>
       <id>muleforge.webdav.sites</id>
-      <username>xx</username>
-      <password>yy</password>
+      <username>erichleipold</username>
+      <password>Ripper01</password>
     </server>
   </servers>
 </settings>

@@ -27,6 +27,7 @@ public class XslFoTransformer extends AbstractTransformer {
   
   private String foFile = null;
   private String mimeType = MimeConstants.MIME_PDF;
+  private String targetResolution = "72.0";
   
   public XslFoTransformer() {
     registerSourceType(byte[].class);
@@ -41,10 +42,12 @@ public class XslFoTransformer extends AbstractTransformer {
     else
       is = new ByteArrayInputStream((byte [])source);
     ByteArrayOutputStream out = new ByteArrayOutputStream();
-    FOUserAgent foUserAgent = FopFactory.newInstance().newFOUserAgent();
+    fopFactory.setTargetResolution(Float.parseFloat(getTargetResolution()));
+    FOUserAgent foUserAgent = fopFactory.newFOUserAgent();
     byte[] result = null;
     try {
       Fop fop = fopFactory.newFop(getMimeType(), foUserAgent, out);
+      logger.debug("Target Resolution: " + fop.getUserAgent().getTargetResolution());
       Source src = new StreamSource(is);
       TransformerFactory factory = TransformerFactory.newInstance();
       Transformer transformer = null;
@@ -83,5 +86,13 @@ public class XslFoTransformer extends AbstractTransformer {
 
   public void setMimeType(String mimeType) {
     this.mimeType = mimeType;
+  }
+  
+  public String getTargetResolution() {
+    return targetResolution;
+  }
+  
+  public void setTargetResolution(String targetResolution) {
+    this.targetResolution = targetResolution;
   }
 }
