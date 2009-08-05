@@ -19,7 +19,8 @@ import org.apache.fop.apps.FOUserAgent;
 import org.apache.fop.apps.Fop;
 import org.apache.fop.apps.FopFactory;
 import org.apache.fop.apps.MimeConstants;
-import org.mule.transformers.AbstractTransformer;
+import org.mule.RequestContext;
+import org.mule.transformer.AbstractTransformer;
 
 public class XslFoTransformer extends AbstractTransformer {
 
@@ -32,7 +33,7 @@ public class XslFoTransformer extends AbstractTransformer {
   public XslFoTransformer() {
     registerSourceType(byte[].class);
     registerSourceType(String.class);
-    setReturnClass(String.class);
+    setReturnClass(byte[].class);
   }
 
   public Object doTransform(Object source, String encoding) {
@@ -68,6 +69,9 @@ public class XslFoTransformer extends AbstractTransformer {
       logger.error("An exception occurred while transforming the object");
       te.printStackTrace();
     }
+    if (logger.isDebugEnabled())
+      logger.debug("CONTENT TYPE: " + RequestContext.getEvent().getMessage().getProperty("Content-Type"));
+    RequestContext.getEvent().getMessage().setProperty("Content-Type", mimeType);
     return result;      
   }
 
