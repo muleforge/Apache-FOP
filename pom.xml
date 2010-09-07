@@ -10,7 +10,7 @@
 	<packaging>jar</packaging>
 	<version>0.0.4</version>
 	<properties>
-		<muleVersion>1.4.1</muleVersion>
+		<muleVersion>2.2.1</muleVersion>
 		<shortId>APACHEFOP</shortId>
 		<domainName>apachefop</domainName>
 	</properties>
@@ -251,11 +251,6 @@
 		<dependency>
 			<groupId>org.mule.transports</groupId>
 			<artifactId>mule-transport-file</artifactId>
-			<version>${muleVersion}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.mule.transports</groupId>
-			<artifactId>mule-transport-stream</artifactId>
 			<version>${muleVersion}</version>
 		</dependency>
 	</dependencies>
