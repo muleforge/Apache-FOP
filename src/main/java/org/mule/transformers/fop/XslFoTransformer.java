@@ -38,6 +38,7 @@ public class XslFoTransformer extends AbstractTransformer {
 
   public Object doTransform(Object source, String encoding) {
     InputStream is = null;
+    setReturnClass(byte[].class);
     if (source instanceof String)
       is = new ByteArrayInputStream(((String)source).getBytes());
     else
