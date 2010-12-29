@@ -8,7 +8,7 @@
 	<name>Apache FOP Transformer</name>
 	<description>This transformer takes a byte array or string as the input source and transforms it into a byte array in one of the FOP formats.</description>
 	<packaging>jar</packaging>
-	<version>0.0.4</version>
+	<version>0.0.5</version>
 	<properties>
 		<muleVersion>2.2.1</muleVersion>
 		<shortId>APACHEFOP</shortId>
