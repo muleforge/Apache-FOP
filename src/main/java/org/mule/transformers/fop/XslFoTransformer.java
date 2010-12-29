@@ -20,6 +20,8 @@ import org.apache.fop.apps.Fop;
 import org.apache.fop.apps.FopFactory;
 import org.apache.fop.apps.MimeConstants;
 import org.mule.RequestContext;
+import org.mule.api.transformer.DataType;
+import org.mule.api.transport.PropertyScope;
 import org.mule.transformer.AbstractTransformer;
 
 public class XslFoTransformer extends AbstractTransformer {
@@ -31,14 +33,14 @@ public class XslFoTransformer extends AbstractTransformer {
   private String targetResolution = "72.0";
   
   public XslFoTransformer() {
-    registerSourceType(byte[].class);
-    registerSourceType(String.class);
-    setReturnClass(byte[].class);
+    registerSourceType(DataType.BYTE_ARRAY_DATA_TYPE);
+    registerSourceType(DataType.STRING_DATA_TYPE);
+    setReturnDataType(DataType.BYTE_ARRAY_DATA_TYPE);
   }
 
   public Object doTransform(Object source, String encoding) {
     InputStream is = null;
-    setReturnClass(byte[].class);
+    //source = "<test></test>";
     if (source instanceof String)
       is = new ByteArrayInputStream(((String)source).getBytes());
     else
@@ -70,9 +72,11 @@ public class XslFoTransformer extends AbstractTransformer {
       logger.error("An exception occurred while transforming the object");
       te.printStackTrace();
     }
-    if (logger.isDebugEnabled())
-      logger.debug("CONTENT TYPE: " + RequestContext.getEvent().getMessage().getProperty("Content-Type"));
-    RequestContext.getEvent().getMessage().setProperty("Content-Type", mimeType);
+    if (logger.isDebugEnabled()) {
+      logger.debug("CONTENT TYPE: " + RequestContext.getEvent().getMessage().getProperty("Content-Type", PropertyScope.INBOUND));
+      logger.debug("MIME TYPE: " + mimeType);
+    }
+    RequestContext.getEvent().getMessage().setProperty("Content-Type", mimeType, PropertyScope.OUTBOUND);
     return result;      
   }
 
